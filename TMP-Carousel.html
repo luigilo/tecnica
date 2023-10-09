@@ -1,0 +1,146 @@
+<!-- librerias css -->
+<#if libsCss.getSiblings()?has_content>
+    <#list libsCss.getSiblings() as cur_libsCss>
+        <link rel="stylesheet" href="${cur_libsCss.getData()}">
+    </#list>
+</#if>
+<style>
+:root{
+    --bg-box: #F8F8F8;
+    --color-box: #222222;
+}
+.bg-box{
+    background-color: var(--bg-box);
+}
+.box-categories{
+    padding: 35px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.box-categories:hover{
+    background: url('/documents/42503/47933/background-fruit.png/b3643763-dc17-3a2e-0c5e-b31c1f7bc625?t=1696883583733');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.categories-subtitle{
+    color: var(--color-box);
+}
+.categories-icon-size{
+    font-size: 45px;
+}
+.box-title-bold{
+    font-weight: bold;
+}
+.categories-subtitle{
+    font-size: 14px;
+    color: #4A5568;
+}
+.categories-icon{
+    margin-bottom: 10px;
+}
+
+.categories-icons:before {
+  content: "";
+  width: 45px;
+  height: 1px;
+  display: block;
+  background: #00FFB2;
+}
+
+.categories-icons:after {
+  content: "";
+  width: 45px;
+  height: 1px;
+  display: block;
+  background: #00FFB2;
+}
+.categories-icons {
+  font-size: 28px;
+}
+.categories-icons .fa-brands {
+  color: #00FFB2;
+  margin: 0px 15px;
+}
+@media(min-width:768px){
+    .categories-corousel .box-categories {
+      width: calc(100%/9 - 10px);
+    }
+    .categories-corousel {
+      display: flex;
+      justify-content: space-between;
+    }
+}
+</style>
+<section>
+    <h2>${Titulo.getData()}</h2>
+    <span class="categories-icons d-flex align-items-center"><i class="fa-brands fa-studiovinari"></i></span>
+    <p class="categories-subtitle">${Subtitulo.getData()}</p>
+    <div class="owl-carousel categories-corousel">
+        <#if ClaseIcon.getSiblings()?has_content>
+            <#list ClaseIcon.getSiblings() as cur_ClaseIcon>
+                <div class="box-categories bg-box d-flex flex-column align-items-center">
+                    <i class="fa-brands ${cur_ClaseIcon.getData()} categories-icon-size categories-icon"></i>
+                    <p class="box-title box-title-bold m-0">${cur_ClaseIcon.TituloCategoria.getData()}</p>
+                </div>
+            </#list>
+        </#if>
+    </div>
+</section>
+<script src="https://kit.fontawesome.com/a0d9831b87.js" crossorigin="anonymous"></script>
+<!-- Librerias js -->
+<#if libsJs.getSiblings()?has_content>
+    <#list libsJs.getSiblings() as cur_libsJs>
+        <script src="${cur_libsJs.getData()}"></script>
+    </#list>
+</#if>
+<script>
+$(document).ready(function() {
+  // Función para inicializar el Owl Carousel solo en pantallas con ancho de hasta 768px
+  function initOwlCarouselForMobile() {
+    $('.owl-carousel').owlCarousel({
+      loop: true,
+      margin: 10,
+      responsiveClass: true,
+      rewind: false,
+      loop: false,
+      responsive: {
+        0: {
+          items: 1,
+          nav: false
+        },
+        500:{
+          items: 3,
+          nav: false
+        },
+        768: {
+          items: 9,
+          nav: false
+        },
+        1960: {
+          items: 9,
+          nav: false,
+          loop: false
+        }
+      }
+    });
+  }
+
+  if (window.innerWidth <= 768) {
+    initOwlCarouselForMobile();
+  }
+  $(window).resize(function() {
+    if (window.innerWidth <= 768) {
+      initOwlCarouselForMobile();
+    } else {
+      var owl = $('.owl-carousel');
+      if (owl.hasClass('owl-loaded')) {
+        owl.trigger('destroy.owl.carousel');
+      }
+    }
+  });
+});
+
+
+</script>
